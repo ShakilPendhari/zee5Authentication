@@ -14,11 +14,19 @@ app.get("/",(req,res)=>{
     res.send("Welcome to home page")
 });
 
-app.use("/auth",UserRouter)
-app.use(authenticate)
 app.use("/hello",(req,res)=>{
     res.send("hello this side")
 })
+
+app.use(authenticate)
+
+app.use("/login",(req,res)=>{
+    res.send("You are logged in")
+})
+
+
+app.use("/auth",UserRouter)
+
 
 app.listen(process.env.port,async()=>{
     try{
