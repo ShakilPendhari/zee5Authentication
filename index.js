@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
@@ -7,7 +8,7 @@ const { UserRouter } = require("./routes/user.routes");
 const authenticate = require("./Middleware/auth.middleware");
 
 app.use(express.json())
-
+app.use(cors())
 
 app.get("/",(req,res)=>{
     res.send("Welcome to home page")
