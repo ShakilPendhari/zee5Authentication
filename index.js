@@ -7,8 +7,9 @@ const {connection} = require("./db");
 const { UserRouter } = require("./routes/user.routes");
 const authenticate = require("./Middleware/auth.middleware");
 
-app.use(express.json())
 app.use(cors())
+app.use(express.json())
+
 
 app.get("/",(req,res)=>{
     res.send("Welcome to home page")
