@@ -17,19 +17,21 @@ UserRouter.get("/authData", async(req,res)=>{
 })
 
 UserRouter.post("/register",async(req,res)=>{
+    console.log(req.body)
     const {name,email,password,mobileNo} = req.body;
     if(!name || !email || !password || !mobileNo)
     {
         res.send({error:"Please fill your details"})
     }
     try{
-        let user = await UserModel.findOne({ "$or": [ { email: email }, { mobileNo: mobileNo} ] });
-        console.log(user,"hello")
-        if (user.email || user.mobileNo)
+        let user = await UserModel.findOne({ "$or": [ { email }, { mobileNo } ] });
+        console.log(user)
+        if (user&&user.email || user&&user.mobileNo)
         {
              res.send({ error: "Email or Phone number already exists" });
              return 
         }
+        console.log("user:",user)
         bcrypt.hash(password, 5, async function(err, hash) {
             if(err)
             {
