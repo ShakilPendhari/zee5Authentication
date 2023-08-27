@@ -184,7 +184,7 @@ let loginController = async (req, res) => {
               {
                 otp: hash,
                 createAt: Number(Date.now()),
-                expireAt: Number(Date.now()) + 1000 * 60 * 30,
+                expireAt: Number(Date.now()) + 1000 * 60 * 30
               }
             );
 
@@ -238,8 +238,9 @@ const checkOTPController = async (req, res) => {
     if (result) {
       // Create token //
 
-      token = jwt.sign({ email: user.email }, process.env.SECRETEKEY, {
-        expiresIn: 60 * 60 * 5,
+      let expireSession = Date.now()+1000*60*60*2
+      token = jwt.sign({ expireSession:expireSession,email: user.email, }, process.env.SECRETEKEY, {
+        expiresIn: 60*60*5,
       });
       //  // console.log(token)
       res
@@ -276,7 +277,7 @@ const checkOTPController = async (req, res) => {
     if (result) {
       // Create token //
 
-      token = jwt.sign({ email: user[0].mobileNo }, process.env.SECRETEKEY, {
+      token = jwt.sign({ email: user[0].mobileNo,expiresAt:Date.now()*1000*60*60*2 }, process.env.SECRETEKEY, {
         expiresIn: 60 * 60 * 5,
       });
       //  // console.log(token)
